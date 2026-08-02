@@ -8,18 +8,33 @@ import csv
 import os
 import requests
 import smtplib
+from dotenv import load_dotenv
 
-client = genai.Client(api_key = "AIzaSyBH8mkRiWC-gB8EoXZkDPtFtojhN5o47Xk")
+# from config import (
+#     IMAP_SERVER,
+#     EMAIL_ACCOUNT,
+#     ACCOUNT_NAME,
+#     APP_PASSWORD,
+#     FOLDER,
+#     CHECK_INTERVAL,
+#     WEB_HOOK_URL,
+#     SMTP_SERVER,
+#     SMTP_PORT,
+#     GEMINI_API_KEY
+# )
 
-# Fetch settings dynamically from cloud environment variables
-IMAP_SERVER = os.environ.get("IMAP_SERVER", "imap.gmail.com")
-SMTP_SERVER = os.environ.get("SMTP_SERVER", "smtp.gmail.com")
-EMAIL_ACCOUNT = os.environ.get("EMAIL_ACCOUNT")
-APP_PASSWORD = os.environ.get("APP_PASSWORD")
-ACCOUNT_NAME = os.environ.get("ACCOUNT_NAME", "Support Team")
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-WEB_HOOK_URL = os.environ.get("WEB_HOOK_URL")
+load_dotenv()
 
+IMAP_SERVER = os.getenv("IMAP_SERVER")
+EMAIL_ACCOUNT = os.getenv("EMAIL_ACCOUNT")
+ACCOUNT_NAME = os.getenv("ACCOUNT_NAME")
+APP_PASSWORD = os.getenv("APP_PASSWORD")
+FOLDER = os.getenv("FOLDER")
+CHECK_INTERVAL = int(os.getenv("CHECK_INTERVAL"))
+WEB_HOOK_URL = os.getenv("WEB_HOOK_URL")
+SMTP_SERVER = os.getenv("SMTP_SERVER")
+SMTP_PORT = int(os.getenv("SMTP_PORT"))
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 
@@ -80,7 +95,7 @@ def send_reply(to_email: str, subject: str, reply_body: str, original_msg_id = N
             message["In_Reply_To"] = original_msg_id
             message["Reference"] = original_msg_id
 
-        server = smtplib.SMTP(SMTP_SERVER)
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
         server.ehlo()  # Identify ourselves to the server
         server.starttls()  # Upgrade connection to secure TLS
         server.ehlo()

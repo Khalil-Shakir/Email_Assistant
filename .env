@@ -1,0 +1,10 @@
+IMAP_SERVER = "imap.gmail.com"
+EMAIL_ACCOUNT = "jastrime@gmail.com"
+ACCOUNT_NAME = "Khalil Shakir"
+APP_PASSWORD = "ssii erqy cpii fjqr"
+FOLDER = "INBOX"
+CHECK_INTERVAL = 5
+WEB_HOOK_URL = ("https://hook.eu1.make.com/tiobxlwu3ob75k6sgtdpwu6257gi3gr3")
+SMTP_SERVER = "smtp.gmail.com"
+SMTP_PORT = 587
+GEMINI_API_KEY = "AIzaSyBH8mkRiWC-gB8EoXZkDPtFtojhN5o47Xk"
